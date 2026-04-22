@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Scarborough Skating Community — Make Your Voice Heard</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --deep: #0d1f2d;
+    --frost: #a8d4e6;
+    --blade: #c0392b;
+    --steel: #4a6fa5;
+    --subtle: #6b8a9a;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--deep);
+    color: #fff;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse at 20% 50%, rgba(168,212,230,0.08) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 20%, rgba(74,111,165,0.12) 0%, transparent 50%),
+      radial-gradient(ellipse at 60% 80%, rgba(168,212,230,0.06) 0%, transparent 40%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  header {
+    position: relative;
+    z-index: 1;
+    padding: 60px 40px 40px;
+    text-align: center;
+    border-bottom: 1px solid rgba(168,212,230,0.15);
+  }
+
+  .eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--frost);
+    margin-bottom: 16px;
+    font-weight: 500;
+  }
+
+  h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 5vw, 3.4rem);
+    color: #fff;
+    line-height: 1.15;
+    margin-bottom: 16px;
+  }
+
+  h1 em { font-style: italic; color: var(--frost); }
+
+  .subtitle {
+    font-size: 15px;
+    color: rgba(255,255,255,0.55);
+    max-width: 560px;
+    margin: 0 auto;
+    line-height: 1.7;
+  }
+
+  .accent-line {
+    width: 48px;
+    height: 2px;
+    background: var(--blade);
+    margin: 28px auto 0;
+  }
+
+  main {
+    position: relative;
+    z-index: 1;
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 48px 24px 80px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .card {
+    background: rgba(232,244,248,0.04);
+    border: 1px solid rgba(168,212,230,0.12);
+    border-radius: 16px;
+    padding: 40px;
+    backdrop-filter: blur(8px);
+  }
+
+  .section-label {
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--frost);
+    font-weight: 500;
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: rgba(168,212,230,0.15);
+  }
+
+  .field-group { margin-bottom: 24px; }
+  .field-group:last-child { margin-bottom: 0; }
+
+  label {
+    display: block;
+    font-size: 13px;
+    font-weight: 500;
+    color: rgba(255,255,255,0.7);
+    margin-bottom: 8px;
+    letter-spacing: 0.02em;
+  }
+
+  label .req { color: var(--blade); margin-left: 2px; }
+
+  input[type="text"], input[type="email"], textarea, select {
+    width: 100%;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(168,212,230,0.18);
+    border-radius: 10px;
+    padding: 13px 16px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    color: #fff;
+    outline: none;
+    transition: border-color 0.2s, background 0.2s;
+    resize: vertical;
+  }
+
+  input::placeholder, textarea::placeholder { color: rgba(255,255,255,0.25); }
+
+  input:focus, textarea:focus, select:focus {
+    border-color: var(--frost);
+    background: rgba(168,212,230,0.06);
+  }
+
+  select option { background: var(--deep); color: #fff; }
+
+  .row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+  .hint { font-size: 12px; color: var(--subtle); margin-top: 6px; line-height: 1.5; }
+
+  /* Recipient checkboxes */
+  .recipient-checkboxes { display: flex; flex-direction: column; gap: 10px; }
+
+  .recipient-option {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 12px 14px;
+    border: 1px solid rgba(168,212,230,0.12);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background 0.15s, border-color 0.15s;
+    user-select: none;
+  }
+
+  .recipient-option:hover { background: rgba(168,212,230,0.05); }
+  .recipient-option.selected { background: rgba(168,212,230,0.08); border-color: rgba(168,212,230,0.3); }
+  .recipient-option input[type="checkbox"] { display: none; }
+
+  .custom-check {
+    width: 18px; height: 18px; min-width: 18px;
+    border: 1.5px solid rgba(168,212,230,0.35);
+    border-radius: 5px;
+    margin-top: 1px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.15s, border-color 0.15s;
+  }
+
+  .recipient-option.selected .custom-check { background: var(--frost); border-color: var(--frost); }
+
+  .custom-check::after {
+    content: '';
+    width: 5px; height: 9px;
+    border: 2px solid var(--deep);
+    border-top: none; border-left: none;
+    transform: rotate(45deg) translateY(-1px);
+    display: none;
+  }
+
+  .recipient-option.selected .custom-check::after { display: block; }
+
+  .recipient-option-name { font-size: 13px; font-weight: 500; color: rgba(255,255,255,0.85); margin-bottom: 2px; }
+  .recipient-option-role { font-size: 12px; color: var(--subtle); line-height: 1.4; }
+  .recipient-option-email { font-size: 11px; color: var(--frost); margin-top: 3px; opacity: 0.8; }
+
+  .warning-text { font-size: 12px; color: var(--blade); margin-top: 8px; display: none; }
+
+  .generate-btn {
+    width: 100%;
+    padding: 17px;
+    background: var(--blade);
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    letter-spacing: 0.03em;
+    cursor: pointer;
+    transition: opacity 0.2s, transform 0.15s;
+  }
+
+  .generate-btn:hover { opacity: 0.9; transform: translateY(-1px); }
+
+  #output-section { display: none; }
+
+  .output-card {
+    background: rgba(232,244,248,0.04);
+    border: 1px solid rgba(168,212,230,0.15);
+    border-radius: 16px;
+    overflow: hidden;
+  }
+
+  .output-header {
+    padding: 16px 24px;
+    background: rgba(168,212,230,0.06);
+    border-bottom: 1px solid rgba(168,212,230,0.12);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .output-header-left { font-size: 12px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--frost); font-weight: 500; }
+
+  .output-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+
+  .btn-sm {
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: opacity 0.2s;
+    border: none;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .btn-copy { background: rgba(168,212,230,0.12); color: var(--frost); border: 1px solid rgba(168,212,230,0.2); }
+  .btn-mailto { background: var(--steel); color: #fff; }
+  .btn-sm:hover { opacity: 0.8; }
+
+  .subject-line {
+    padding: 14px 28px;
+    background: rgba(74,111,165,0.12);
+    border-bottom: 1px solid rgba(168,212,230,0.1);
+    font-size: 13px;
+    color: rgba(255,255,255,0.5);
+  }
+
+  .subject-line strong { color: rgba(255,255,255,0.75); font-weight: 500; }
+
+  #email-output {
+    padding: 28px;
+    font-size: 14px;
+    line-height: 1.8;
+    color: rgba(255,255,255,0.82);
+    white-space: pre-wrap;
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  .copied-toast {
+    position: fixed;
+    bottom: 32px;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: rgba(13,31,45,0.95);
+    border: 1px solid var(--frost);
+    color: var(--frost);
+    padding: 10px 22px;
+    border-radius: 100px;
+    font-size: 13px;
+    font-weight: 500;
+    opacity: 0;
+    transition: opacity 0.3s, transform 0.3s;
+    pointer-events: none;
+    z-index: 100;
+  }
+
+  .copied-toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+  @media(max-width: 540px) {
+    .row { grid-template-columns: 1fr; }
+    .card { padding: 24px; }
+    header { padding: 40px 24px 32px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <p class="eyebrow">Scarborough Skating Community</p>
+  <h1>Make Your <em>Voice Heard</em></h1>
+  <p class="subtitle">Fill in your details and we'll prepare a personalized complaint email ready to send — no account needed.</p>
+  <div class="accent-line"></div>
+</header>
+
+<main>
+
+  <div class="card">
+    <p class="section-label">Your Details</p>
+    <div class="row">
+      <div class="field-group">
+        <label>Full Name <span class="req">*</span></label>
+        <input type="text" id="name" placeholder="Jane Smith">
+      </div>
+      <div class="field-group">
+        <label>Your Email <span class="req">*</span></label>
+        <input type="email" id="email" placeholder="jane@example.com">
+        <p class="hint">Used to pre-fill the mailto link only.</p>
+      </div>
+    </div>
+
+    <div class="field-group">
+      <label>How long have you been skating at this rink? <span class="req">*</span></label>
+      <select id="duration">
+        <option value="">Select…</option>
+        <option>Less than a year</option>
+        <option>1–2 years</option>
+        <option>3–5 years</option>
+        <option>5–10 years</option>
+        <option>Over 10 years</option>
+      </select>
+    </div>
+
+    <div class="field-group">
+      <label>How often do you attend public skating sessions?</label>
+      <select id="frequency">
+        <option value="">Select…</option>
+        <option>Occasionally (a few times a year)</option>
+        <option>Monthly</option>
+        <option>Weekly</option>
+        <option>Multiple times per week</option>
+      </select>
+    </div>
+
+    <p class="section-label" style="margin-top: 8px;">Your Personal Experience</p>
+
+    <div class="field-group">
+      <label>How has the new restriction personally affected you? <span class="req">*</span></label>
+      <textarea id="impact" rows="4" placeholder="e.g. I've been practicing figure skating here for 6 years and this is the only affordable ice time available to me. The new rules have made it impossible to continue my practice…"></textarea>
+      <p class="hint">Be specific — personal stories are the most powerful.</p>
+    </div>
+
+    <div class="field-group">
+      <label>Anything else you'd like included? (optional)</label>
+      <textarea id="extra" rows="3" placeholder="e.g. I'm a senior who uses skating for fitness and community. The social aspect of this rink is irreplaceable for me…"></textarea>
+    </div>
+
+    <div class="field-group">
+      <label>Preferred tone</label>
+      <select id="tone">
+        <option value="formal">Formal & Firm</option>
+        <option value="passionate">Passionate & Heartfelt</option>
+        <option value="logical">Matter-of-Fact & Logical</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="card">
+    <p class="section-label">Choose Recipients <span style="color:var(--blade);font-size:10px;letter-spacing:0;text-transform:none;font-weight:400;">Select one or more</span></p>
+    <div class="recipient-checkboxes" id="recipient-checkboxes">
+      <label class="recipient-option selected" onclick="toggleRecipient(this)">
+        <input type="checkbox" value="Nicole.Chevalier@toronto.ca" checked>
+        <div class="custom-check"></div>
+        <div>
+          <div class="recipient-option-name">Nicole Chevalier</div>
+          <div class="recipient-option-role">Community Recreation Programmer — Scarborough District Leisure Skate</div>
+          <div class="recipient-option-email">Nicole.Chevalier@toronto.ca</div>
+        </div>
+      </label>
+      <label class="recipient-option selected" onclick="toggleRecipient(this)">
+        <input type="checkbox" value="parks@toronto.ca" checked>
+        <div class="custom-check"></div>
+        <div>
+          <div class="recipient-option-name">City of Toronto Parks &amp; Recreation</div>
+          <div class="recipient-option-role">Department overseeing all recreation centre operations and policy</div>
+          <div class="recipient-option-email">parks@toronto.ca</div>
+        </div>
+      </label>
+      <label class="recipient-option selected" onclick="toggleRecipient(this)">
+        <input type="checkbox" value="councillor_mantas@toronto.ca" checked>
+        <div class="custom-check"></div>
+        <div>
+          <div class="recipient-option-name">Councillor Nick Mantas</div>
+          <div class="recipient-option-role">City Councillor — Ward 22, Scarborough–Agincourt</div>
+          <div class="recipient-option-email">councillor_mantas@toronto.ca</div>
+        </div>
+      </label>
+      <label class="recipient-option" onclick="toggleRecipient(this)">
+        <input type="checkbox" value="aris.babikian@pc.ola.org">
+        <div class="custom-check"></div>
+        <div>
+          <div class="recipient-option-name">Aris Babikian <span style="font-size:11px;color:var(--subtle);font-weight:400;">(optional escalation)</span></div>
+          <div class="recipient-option-role">MPP — Scarborough–Agincourt, Province of Ontario</div>
+          <div class="recipient-option-email">aris.babikian@pc.ola.org</div>
+        </div>
+      </label>
+    </div>
+    <p class="warning-text" id="no-recipient-warning">Please select at least one recipient.</p>
+  </div>
+
+  <button class="generate-btn" onclick="generate()">Prepare My Email</button>
+
+  <div id="output-section">
+    <div class="output-card">
+      <div class="output-header">
+        <span class="output-header-left">Your Email — Ready to Send</span>
+        <div class="output-actions">
+          <button class="btn-sm btn-copy" onclick="copyEmail()">⧉ Copy</button>
+          <a class="btn-sm btn-mailto" id="mailto-link" href="#">✉ Open in Mail</a>
+        </div>
+      </div>
+      <div class="subject-line">Subject: <strong id="subject-display"></strong></div>
+      <div id="email-output"></div>
+    </div>
+  </div>
+
+</main>
+
+<div class="copied-toast" id="toast">Copied to clipboard!</div>
+
+<script>
+const SUBJECT = "Complaint Regarding Unjust Restrictions on Public Skating at Scarborough Centennial Recreation Centre";
+
+function toggleRecipient(label) {
+  const cb = label.querySelector('input[type="checkbox"]');
+  cb.checked = !cb.checked;
+  label.classList.toggle('selected', cb.checked);
+  document.getElementById('no-recipient-warning').style.display = 'none';
+}
+
+function getSelectedRecipients() {
+  return [...document.querySelectorAll('#recipient-checkboxes input:checked')].map(cb => cb.value);
+}
+
+function buildSalutation(recipients) {
+  const names = [];
+  if (recipients.includes('Nicole.Chevalier@toronto.ca')) names.push('Ms. Chevalier');
+  if (recipients.includes('parks@toronto.ca')) names.push('the Parks, Forestry & Recreation Team');
+  if (recipients.includes('councillor_mantas@toronto.ca')) names.push('Councillor Mantas');
+  if (recipients.includes('aris.babikian@pc.ola.org')) names.push('MPP Babikian');
+  if (names.length === 0) return 'Dear Sir or Madam';
+  if (names.length === 1) return `Dear ${names[0]}`;
+  return `Dear ${names.slice(0, -1).join(', ')} and ${names[names.length - 1]}`;
+}
+
+function buildEmail({ name, duration, frequency, impact, extra, tone, recipients }) {
+  const salutation = buildSalutation(recipients);
+  const freqText = frequency ? frequency.toLowerCase() : 'regularly';
+
+  const openers = {
+    passionate: `I am writing to you today with a heavy heart regarding a matter that has deeply affected me and many others who call the Scarborough Centennial Recreation Centre our second home.`,
+    logical:    `I am writing to formally raise a concern regarding a recent policy change at Scarborough Centennial Recreation Centre that I believe warrants your immediate attention.`,
+    formal:     `I am writing to bring to your attention a recent policy change at Scarborough Centennial Recreation Centre that I believe is unjust and demands an urgent review.`,
+  };
+
+  const closings = {
+    passionate: `This rink is more than ice and boards — it is a community. The disproportionate response to a single complaint has dismantled years of trust and belonging that taxpaying residents have built here. I urge you to intervene immediately.`,
+    logical:    `As taxpaying residents who depend on this public facility, we deserve better than a unilateral policy change made without consultation. The restrictions are excessive, disproportionate, and have caused real harm to a long-standing community.`,
+    formal:     `As taxpaying residents who depend on this public facility, we deserve better than a unilateral policy change made without consultation. The restrictions are excessive, disproportionate, and have caused real harm to a long-standing community.`,
+  };
+
+  const personalPara = `I have been skating at this rink for ${duration.toLowerCase()} and attend ${freqText}. ${impact}`;
+
+  const contextPara = `The public skating sessions at this facility have long been a welcoming space for a diverse and respectful community of skaters — including many who practice figure skating in a safe, organized manner with no history of serious incidents. Following a single complaint, management has implemented sweeping restrictions: the centre of the rink has been physically blocked off, figure skating of any kind is now prohibited, staff supervise every session including previously unsupervised ones, and skaters are limited to forward skating at an average pace only. There was no documented safety incident to justify measures of this scale.`;
+
+  const extraPara = extra ? `\n${extra}\n` : '';
+
+  const callToAction = `I respectfully request:\n1. An immediate review and reversal of the new skating restrictions\n2. A community consultation before any further policy changes are implemented\n3. A written explanation of the specific safety concerns that prompted these measures`;
+
+  return `${salutation},
+
+${openers[tone]}
+
+${personalPara}
+${extraPara}
+${contextPara}
+
+${closings[tone]}
+
+${callToAction}
+
+I trust you will take this matter seriously and look forward to your response.
+
+Sincerely,
+${name}`;
+}
+
+function generate() {
+  const name     = document.getElementById('name').value.trim();
+  const email    = document.getElementById('email').value.trim();
+  const duration = document.getElementById('duration').value;
+  const frequency= document.getElementById('frequency').value;
+  const impact   = document.getElementById('impact').value.trim();
+  const extra    = document.getElementById('extra').value.trim();
+  const tone     = document.getElementById('tone').value;
+  const recipients = getSelectedRecipients();
+
+  if (!name || !email || !duration || !impact) {
+    alert('Please fill in all required fields (marked with *).');
+    return;
+  }
+
+  if (recipients.length === 0) {
+    document.getElementById('no-recipient-warning').style.display = 'block';
+    return;
+  }
+
+  const emailText = buildEmail({ name, duration, frequency, impact, extra, tone, recipients });
+
+  document.getElementById('subject-display').textContent = SUBJECT;
+  document.getElementById('email-output').textContent = emailText;
+  document.getElementById('mailto-link').href =
+    `mailto:${recipients.join(',')}?subject=${encodeURIComponent(SUBJECT)}&body=${encodeURIComponent(emailText)}`;
+
+  document.getElementById('output-section').style.display = 'block';
+  document.getElementById('output-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function copyEmail() {
+  const text = document.getElementById('email-output').textContent;
+  navigator.clipboard.writeText(`Subject: ${SUBJECT}\n\n${text}`).then(() => {
+    const toast = document.getElementById('toast');
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 2500);
+  });
+}
+</script>
+</body>
+</html>
