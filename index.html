@@ -4,6 +4,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Scarborough Skating Community — Make Your Voice Heard</title>
+<meta name="description" content="Generate a personalized email to Toronto officials about public skating restrictions at Scarborough Centennial Recreation Centre and help advocate for fair access to ice time.">
+<meta property="og:title" content="Scarborough Skating Community — Make Your Voice Heard">
+<meta property="og:description" content="Generate a personalized email to Toronto officials about public skating restrictions at Scarborough Centennial Recreation Centre.">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Scarborough Skating Community — Make Your Voice Heard">
+<meta name="twitter:description" content="Generate a personalized email to Toronto officials about public skating restrictions at Scarborough Centennial Recreation Centre.">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <script src="https://cdn.tailwindcss.com"></script>
 <script>
@@ -75,15 +82,10 @@
     <section class="flex-1 rounded-2xl border border-frost/15 bg-white/5 p-6 backdrop-blur-md sm:p-8">
       <p class="mb-6 flex items-center gap-3 text-[11px] font-medium uppercase tracking-[0.2em] text-frost after:h-px after:flex-1 after:bg-frost/20 after:content-['']">Your Details</p>
 
-      <div class="mb-6 flex flex-col gap-4 md:flex-row">
+      <div class="mb-6">
         <div class="flex-1">
           <label class="mb-2 block text-sm font-medium text-white/75">Full Name <span class="text-blade">*</span></label>
           <input class="w-full rounded-xl border border-frost/25 bg-white/5 px-4 py-3 text-sm text-white placeholder:text-white/30 outline-none transition focus:border-frost focus:bg-frost/10" type="text" id="name" placeholder="Jane Smith">
-        </div>
-        <div class="flex-1">
-          <label class="mb-2 block text-sm font-medium text-white/75">Your Email <span class="text-blade">*</span></label>
-          <input class="w-full rounded-xl border border-frost/25 bg-white/5 px-4 py-3 text-sm text-white placeholder:text-white/30 outline-none transition focus:border-frost focus:bg-frost/10" type="email" id="email" placeholder="jane@example.com">
-          <p class="mt-1.5 text-xs leading-relaxed text-subtle">Used to pre-fill the mailto link only.</p>
         </div>
       </div>
 
@@ -272,7 +274,6 @@ ${name}`;
 
 function generate() {
   const name     = document.getElementById('name').value.trim();
-  const email    = document.getElementById('email').value.trim();
   const duration = document.getElementById('duration').value;
   const frequency= document.getElementById('frequency').value;
   const impact   = document.getElementById('impact').value.trim();
@@ -280,7 +281,7 @@ function generate() {
   const tone     = document.getElementById('tone').value;
   const recipients = getSelectedRecipients();
 
-  if (!name || !email || !duration || !impact) {
+  if (!name || !duration || !impact) {
     alert('Please fill in all required fields (marked with *).');
     return;
   }
